@@ -42,9 +42,9 @@ namespace select_delete_insert_update_from_csharp
             try
             {
                 query = string.Empty;
-                query = "SELECT TOP 1000 BUSINESSENTITYID ,ACCOUNTNUMBER,NAME,MODIFIEDDATE FROM ADVENTUREWORKS2014.PURCHASING.VENDOR2 where BUSINESSENTITYID = @businessid   ORDER BY BUSINESSENTITYID ASC ";
+                query = "seleccion_condicionada";
                 sql_cmd = new SqlCommand(query, sql_con);
-                sql_cmd.CommandType = CommandType.Text;
+                sql_cmd.CommandType = CommandType.StoredProcedure;
                 sql_cmd.Parameters.AddWithValue("@businessid", Convert.ToInt32(textBox_condicion.Text));
 
                 sql_con.Open();
@@ -81,9 +81,10 @@ namespace select_delete_insert_update_from_csharp
             {
                 dt.Clear();
                 query = string.Empty;
-                query = "SELECT TOP 1000 BUSINESSENTITYID ,ACCOUNTNUMBER,NAME,MODIFIEDDATE  FROM ADVENTUREWORKS2014.PURCHASING.VENDOR2   ORDER BY BUSINESSENTITYID ASC ";
-                sql_cmd = new SqlCommand(query,sql_con);                
-                  sql_da = new SqlDataAdapter(sql_cmd);
+                query = "seleccionar_todo";
+                sql_cmd = new SqlCommand(query,sql_con);
+                sql_cmd.CommandType = CommandType.StoredProcedure;               
+                 sql_da = new SqlDataAdapter(sql_cmd);
                 sql_da.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
                 dataGrid1.AutoGenerateColumns = true;
@@ -106,7 +107,7 @@ namespace select_delete_insert_update_from_csharp
             try
             { 
             query = string.Empty;
-            query = "SELECT TOP 1000 BUSINESSENTITYID FROM ADVENTUREWORKS2014.PURCHASING.VENDOR2  ORDER BY BUSINESSENTITYID ASC ";
+            query = "SELECT BUSINESSENTITYID FROM ADVENTUREWORKS2014.PURCHASING.VENDOR2  ORDER BY BUSINESSENTITYID ASC ";
             sql_cmd = new SqlCommand(query, sql_con);
             sql_cmd.CommandType = CommandType.Text;
             
@@ -133,5 +134,7 @@ namespace select_delete_insert_update_from_csharp
                 sql_con.Close();
             }
         }
+
+
     }
 }

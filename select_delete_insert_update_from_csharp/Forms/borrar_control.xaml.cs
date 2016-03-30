@@ -22,12 +22,15 @@ namespace select_delete_insert_update_from_csharp
     /// </summary>
     public partial class borrar_control : UserControl
     {
+        #region Variables
         static string con_db = @"server=LAPTOP-K17D07D6\SQL2014;database=AdventureWorks2014;trusted_connection=true";
         SqlConnection sql_con = new SqlConnection(con_db);
         SqlCommand sql_cmd;
         SqlDataAdapter sql_da = new SqlDataAdapter();
         DataTable dt = new DataTable();
         string query = string.Empty;
+        #endregion
+
         public borrar_control()
         {
             InitializeComponent();
@@ -38,9 +41,9 @@ namespace select_delete_insert_update_from_csharp
             try
             {
                 query = string.Empty;
-                query = "DELETE FROM ADVENTUREWORKS2014.PURCHASING.VENDOR2 WHERE BUSINESSENTITYID = @BUSINESSENTITYID ";
+                query = "borrar_campos";
                 sql_cmd = new SqlCommand(query, sql_con);
-                sql_cmd.CommandType = CommandType.Text;
+                sql_cmd.CommandType = CommandType.StoredProcedure;
                 sql_cmd.Parameters.AddWithValue("@BUSINESSENTITYID", Convert.ToInt32(textBox_condicion.Text));
 
                 sql_con.Open();
@@ -76,8 +79,9 @@ namespace select_delete_insert_update_from_csharp
             {
                 dt.Clear();
                 query = string.Empty;
-                query = "SELECT   BUSINESSENTITYID ,ACCOUNTNUMBER,NAME,MODIFIEDDATE  FROM ADVENTUREWORKS2014.PURCHASING.VENDOR2   ORDER BY BUSINESSENTITYID ASC ";
+                query = "seleccionar_todo";
                 sql_cmd = new SqlCommand(query, sql_con);
+                sql_cmd.CommandType = CommandType.StoredProcedure;
                 sql_da = new SqlDataAdapter(sql_cmd);
                 sql_da.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;

@@ -31,18 +31,15 @@ namespace select_delete_insert_update_from_csharp
         public Insertar_Control()
         {
             InitializeComponent();
-        }
- 
-
+        } 
         private void button_insertar_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 query = string.Empty;
-                query = "insert into ADVENTUREWORKS2014.PURCHASING.VENDOR2 (BUSINESSENTITYID ,ACCOUNTNUMBER,NAME,MODIFIEDDATE)  values(@BUSINESSENTITYID ,@ACCOUNTNUMBER,@NAME,@MODIFIEDDATE) ";
-                
+                query = "insertar_campos";                
                 sql_cmd = new SqlCommand(query, sql_con);
-                sql_cmd.CommandType = CommandType.Text;
+                sql_cmd.CommandType = CommandType.StoredProcedure;
                 sql_cmd.Parameters.AddWithValue("@BUSINESSENTITYID", Convert.ToInt64(textBox_BUSINESSENTITYID.Text));
                 sql_cmd.Parameters.AddWithValue("@ACCOUNTNUMBER", textBox_ACCOUNT_NUMBER.Text);
                 sql_cmd.Parameters.AddWithValue("@NAME",  textBox_NAME.Text);
@@ -85,8 +82,9 @@ namespace select_delete_insert_update_from_csharp
             {
                 dt.Clear();
                 query = string.Empty;
-                query = "SELECT   BUSINESSENTITYID ,ACCOUNTNUMBER,NAME,MODIFIEDDATE  FROM ADVENTUREWORKS2014.PURCHASING.VENDOR2   ORDER BY BUSINESSENTITYID ASC ";
+                query = "seleccionar_todo";
                 sql_cmd = new SqlCommand(query, sql_con);
+                sql_cmd.CommandType = CommandType.StoredProcedure;
                 sql_da = new SqlDataAdapter(sql_cmd);
                 sql_da.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
@@ -104,5 +102,6 @@ namespace select_delete_insert_update_from_csharp
             }
 
         }
+         
     }
 }

@@ -40,9 +40,9 @@ namespace select_delete_insert_update_from_csharp
             try
             {
                 query = string.Empty;
-                query = "update ADVENTUREWORKS2014.PURCHASING.VENDOR2  set ACCOUNTNUMBER = @ACCOUNTNUMBER,NAME = @NAME,MODIFIEDDATE = @MODIFIEDDATE where  BUSINESSENTITYID = @BUSINESSENTITYID ";
+                query = "actualizar_campos";
                 sql_cmd = new SqlCommand(query, sql_con);
-                sql_cmd.CommandType = CommandType.Text;
+                sql_cmd.CommandType = CommandType.StoredProcedure;
                 sql_cmd.Parameters.AddWithValue("@BUSINESSENTITYID", Convert.ToInt64(textBox_BUSINESSENTITYID.Text));
                 sql_cmd.Parameters.AddWithValue("@ACCOUNTNUMBER", textBox_ACCOUNT_NUMBER.Text);
                 sql_cmd.Parameters.AddWithValue("@NAME", textBox_NAME.Text);
@@ -76,8 +76,9 @@ namespace select_delete_insert_update_from_csharp
             {
                 dt.Clear();
                 query = string.Empty;
-                query = "SELECT   BUSINESSENTITYID ,ACCOUNTNUMBER,NAME,MODIFIEDDATE  FROM ADVENTUREWORKS2014.PURCHASING.VENDOR2   ORDER BY BUSINESSENTITYID ASC ";
+                query = "seleccionar_todo";
                 sql_cmd = new SqlCommand(query, sql_con);
+                sql_cmd.CommandType = CommandType.StoredProcedure;
                 sql_da = new SqlDataAdapter(sql_cmd);
                 sql_da.Fill(dt);
                 dataGrid1.ItemsSource = dt.DefaultView;
@@ -95,15 +96,16 @@ namespace select_delete_insert_update_from_csharp
             }
 
         }
+
         public void seleccion_condicionada()
         {
 
             try
             {
                 query = string.Empty;
-                query = "SELECT TOP 1000 BUSINESSENTITYID ,ACCOUNTNUMBER,NAME,MODIFIEDDATE FROM ADVENTUREWORKS2014.PURCHASING.VENDOR2 where BUSINESSENTITYID = @businessid   ORDER BY BUSINESSENTITYID ASC ";
+                query = "seleccion_condicionada";
                 sql_cmd = new SqlCommand(query, sql_con);
-                sql_cmd.CommandType = CommandType.Text;
+                sql_cmd.CommandType = CommandType.StoredProcedure;
                 sql_cmd.Parameters.AddWithValue("@businessid", Convert.ToInt32(textBox_condicion.Text));
 
                 sql_con.Open();
